@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrix Gateway | دروازه ورود</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body id="gateway">
+
+    <div class="lang-switcher">
+        <button id="lang-btn">EN 🇺🇸</button>
+    </div>
+
+    <div class="terminal-container">
+        <div class="terminal-header">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+            <span class="terminal-title">system@matrix:~</span>
+        </div>
+        <div class="terminal-body">
+            <p id="warn1"></p>
+            <p id="warn2"></p>
+            <p id="warn3" class="highlight"></p>
+        </div>
+    </div>
+
+    <div class="pills-container">
+        <!-- دقت کن که آدرس این لینک توسط جاوااسکریپت کنترل میشه -->
+        <a href="fa.home.html" id="red-pill" class="pill red">ورود</a>
+        <a href="https://google.com" id="blue-pill" class="pill blue">خروج</a>
+    </div>
+
+    <!-- این همون سیاه‌چاله است که قراره باز بشه -->
+    <div id="black-hole"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
