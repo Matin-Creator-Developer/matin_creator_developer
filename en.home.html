@@ -24,6 +24,252 @@
             <p class="badass-bio">I am Matin. I'm not here to motivate you, I'm here to wake you up.</p>
         </header>
 
+ <!-- فونت سایبرپانکی از گوگل فونت -->
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+
+
+
+<!-- استایل‌های نئونی و سایبرپانک -->
+
+<style>
+
+    .cyber-container {
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        justify-content: center;
+
+        background-color: #0d0d0d;
+
+        border: 2px solid #0ff;
+
+        box-shadow: 0 0 15px #0ff, inset 0 0 10px #0ff;
+
+        padding: 20px;
+
+        border-radius: 10px;
+
+        font-family: 'Orbitron', sans-serif;
+
+        color: #fff;
+
+        width: 100%;
+
+        max-width: 400px;
+
+        margin: 20px auto;
+
+        position: relative;
+
+        overflow: hidden;
+
+    }
+
+    
+
+    /* افکت نوار خطر سایبرپانکی بالا و پایین */
+
+    .cyber-container::before {
+
+        content: '';
+
+        position: absolute;
+
+        top: 0; left: 0; right: 0; height: 5px;
+
+        background: repeating-linear-gradient(45deg, #ff00ff, #ff00ff 10px, #000 10px, #000 20px);
+
+    }
+
+
+
+    .cyber-title {
+
+        color: #ff00ff;
+
+        text-shadow: 0 0 10px #ff00ff;
+
+        font-size: 1.2rem;
+
+        margin-bottom: 15px;
+
+        text-transform: uppercase;
+
+        letter-spacing: 2px;
+
+    }
+
+
+
+    .cyber-timer {
+
+        display: flex;
+
+        gap: 15px;
+
+    }
+
+
+
+    .time-box {
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+    }
+
+
+
+    .time-value {
+
+        font-size: 2.5rem;
+
+        color: #0ff;
+
+        text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+
+        background: rgba(0, 255, 255, 0.1);
+
+        padding: 10px 15px;
+
+        border-radius: 5px;
+
+        border: 1px solid rgba(0, 255, 255, 0.3);
+
+    }
+
+
+
+    .time-label {
+
+        font-size: 0.8rem;
+
+        color: #aaa;
+
+        margin-top: 5px;
+
+        text-transform: uppercase;
+
+        letter-spacing: 1px;
+
+    }
+
+</style>
+
+
+
+<!-- ساختار HTML باکس -->
+
+<div class="cyber-container">
+
+    <div class="cyber-title">SYSTEM UPLOAD: NEXT VIDEO</div>
+
+    <div class="cyber-timer">
+
+        <div class="time-box">
+
+            <span class="time-value" id="hours">00</span>
+
+            <span class="time-label">Hours</span>
+
+        </div>
+
+        <div class="time-box">
+
+            <span class="time-value" id="minutes">00</span>
+
+            <span class="time-label">Minutes</span>
+
+        </div>
+
+        <div class="time-box">
+
+            <span class="time-value" id="seconds">00</span>
+
+            <span class="time-label">Seconds</span>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- اسکریپت پردازش زمان -->
+
+<script>
+
+    function updateCyberTimer() {
+
+        // دریافت زمان فعلی با تایم‌زون دقیق ایران
+
+        let nowString = new Date().toLocaleString("en-US", {timeZone: "Asia/Tehran"});
+
+        let now = new Date(nowString);
+
+        
+
+        // تنظیم هدف برای ساعت 21:00:00 امروز
+
+        let target = new Date(now);
+
+        target.setHours(21, 0, 0, 0);
+
+
+
+        // اگر ساعت از 9 شب گذشته بود، هدف می‌شه 9 شبِ فردا
+
+        if (now >= target) {
+
+            target.setDate(target.getDate() + 1);
+
+        }
+
+
+
+        // محاسبه اختلاف زمان
+
+        let diff = target - now;
+
+        
+
+        let h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+        let m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+        let s = Math.floor((diff % (1000 * 60)) / 1000);
+
+
+
+        // آپدیت کردن صفحه با فرمت دو رقمی (مثل 09 به جای 9)
+
+        document.getElementById("hours").innerText = h.toString().padStart(2, '0');
+
+        document.getElementById("minutes").innerText = m.toString().padStart(2, '0');
+
+        document.getElementById("seconds").innerText = s.toString().padStart(2, '0');
+
+    }
+
+
+
+    // رفرش کردن تایمر هر یک ثانیه
+
+    setInterval(updateCyberTimer, 1000);
+
+    updateCyberTimer(); // اجرای اولیه برای جلوگیری از وقفه
+
+</script>
+
         <main>
             <div class="links-grid">
                 <a href="https://youtube.com/@matin_creator.developer" class="glass-btn neon-youtube" target="_blank">
