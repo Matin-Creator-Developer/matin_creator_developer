@@ -3,7 +3,9 @@ const matrixLanguages = {
     en: { warn1: "You are on the verge of a great transformation", warn2: "Do you have the ability and courage to accept the truth?", warn3: "Make your choice", red: "Enter", blue: "Exit", nextPage: "en.home.html", langBtn: "FA 🇮🇷" }
 };
 
-let currentLang = 'fa';
+// تشخیص هوشمند زبان دستگاه کاربر به محض ورود
+const userLang = navigator.language || navigator.userLanguage;
+let currentLang = userLang.toLowerCase().includes('fa') ? 'fa' : 'en';
 let typingTimeoutId = null;
 let typingIntervalId = null;
 
@@ -79,3 +81,40 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 });
+
+// ==========================================
+// پردازشگر سایبرتایمر و تاریخ انقضا
+// ==========================================
+function updateCyberTimer() {
+    const timerContainer = document.querySelector('.cyber-container');
+    // اگه کاربر تو صفحه‌ای بود که باکس تایمر وجود نداشت، پردازش رو متوقف کن تا سیستم کرش نکنه
+    if (!timerContainer) return; 
+
+    // تاریخ انقضای عملیات: 1 سپتامبر ساعت 21:00
+    let finalDate = new Date("2026-09-01T21:00:00");
+    if (new Date() >= finalDate) {
+        timerContainer.style.display = 'none'; // محو شدن خودکار باکس
+        return;
+    }
+
+    let nowString = new Date().toLocaleString("en-US", {timeZone: "Asia/Tehran"});
+    let now = new Date(nowString);
+    let target = new Date(now);
+    target.setHours(21, 0, 0, 0);
+
+    if (now >= target) {
+        target.setDate(target.getDate() + 1);
+    }
+
+    let diff = target - now;
+    let h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    let m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    let s = Math.floor((diff % (1000 * 60)) / 1000);
+
+    document.getElementById("hours").innerText = h.toString().padStart(2, '0');
+    document.getElementById("minutes").innerText = m.toString().padStart(2, '0');
+    document.getElementById("seconds").innerText = s.toString().padStart(2, '0');
+}
+
+setInterval(updateCyberTimer, 1000);
+updateCyberTimer();
