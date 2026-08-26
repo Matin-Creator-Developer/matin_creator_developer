@@ -246,3 +246,33 @@ body.portal-active .lang-switcher {
     font-size: 0.8rem; color: #aaa; margin-top: 5px;
     text-transform: uppercase; letter-spacing: 1px;
 }
+/* ========================================= */
+/* استتارِ سایبرپانکیِ لوگوی اینماد تو ماتریکس */
+/* ========================================= */
+footer {
+    z-index: 100;
+    position: relative;
+    margin-top: 30px;
+}
+
+footer a img {
+    /* به جای سفید خالص، یه سبزِ یخیِ روشن و کمی شیشه‌ای بهش دادیم */
+    background-color: rgba(220, 255, 220, 0.95) !important; 
+    
+    /* پدینگ رو روی 2 پیکسل تنظیم کردیم تا دقیقاً کیپِ لوگو بشه و لکه نندازه */
+    padding: 2px !important; 
+    
+    border-radius: 8px;
+    
+    /* یه حاشیه نئونی سبز دورش کشیدیم که ابهتش حفظ بشه */
+    border: 1px solid #00ff00; 
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+    
+    /* یه افکت که وقتی روش کلیک می‌کنی یکم روشن‌تر بشه */
+    transition: all 0.3s ease;
+}
+
+footer a img:hover {
+    box-shadow: 0 0 25px rgba(0, 255, 0, 0.8);
+    transform: scale(1.05);
+}
