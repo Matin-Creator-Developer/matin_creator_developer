@@ -16,9 +16,6 @@ body {
     padding: 20px;
 }
 
-/* ========================================= */
-/* ویدیو پس‌زمینه (استراتژی ۳ تکه برای موبایل) */
-/* ========================================= */
 .video-background {
     position: fixed;
     top: 0;
@@ -27,7 +24,7 @@ body {
     height: 100%;
     z-index: -1;
     display: flex;
-    opacity: 0.65; 
+    opacity: 0.65;
 }
 
 .video-background video {
@@ -37,16 +34,13 @@ body {
 }
 
 .mobile-only {
-    display: none; 
+    display: none;
 }
 
 @media (max-width: 768px) {
     .mobile-only { display: block; }
 }
 
-/* ========================================= */
-/* استایل‌های مشترک (ترمینال و دروازه ورود) */
-/* ========================================= */
 .lang-switcher { position: fixed; top: 20px; right: 20px; z-index: 100;}
 #lang-btn {
     background: #000000; color: #00ff00; border: 1px solid #00ff00;
@@ -76,9 +70,6 @@ body {
 #red-pill { background-color: #ff3333; color: #ffffff; box-shadow: 0 0 15px #ff3333; }
 #blue-pill { background-color: #3333ff; color: #ffffff; box-shadow: 0 0 15px #3333ff; }
 
-/* ========================================= */
-/* مرکز فرماندهی (پلتفرم‌ها) */
-/* ========================================= */
 .content-wrapper {
     padding: 40px 20px;
     max-width: 600px;
@@ -125,9 +116,6 @@ body {
 
 .links-grid { display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px; }
 
-/* ========================================= */
-/* استایل دکمه‌های پلتفرم‌ها (تک‌خطی، چپ‌چین، فونت بزرگتر) */
-/* ========================================= */
 .glass-btn {
     background: transparent;
     border: 2px solid rgba(0, 255, 0, 0.5);
@@ -135,33 +123,31 @@ body {
     padding: 12px 20px;
     border-radius: 10px;
     text-decoration: none;
-    font-size: 1.15rem; /* فونت بزرگتر برای خوانایی بهتر */
+    font-size: 1.15rem;
     font-weight: 900;
-    letter-spacing: 1px; /* فاصله حروف کمتر برای جا شدن متن‌های طولانی */
+    letter-spacing: 1px;
     transition: all 0.3s ease;
     text-transform: uppercase;
     text-shadow: 2px 2px 5px #000000, 0 0 10px #000000;
-    
-    display: flex;             
-    align-items: center;       
+    display: flex;
+    align-items: center;
     justify-content: flex-start;
-    direction: ltr;            
-    gap: 15px;                 
-    white-space: nowrap;       
-    overflow: hidden;          
+    direction: ltr;
+    gap: 15px;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .btn-icon {
     width: 24px;
     height: 24px;
     object-fit: contain;
-    filter: drop-shadow(0px 0px 5px rgba(255, 255, 255, 0.4)); 
-    flex-shrink: 0; 
+    filter: drop-shadow(0px 0px 5px rgba(255, 255, 255, 0.4));
+    flex-shrink: 0;
 }
 
 .glass-btn:hover { transform: translateY(-3px); border-color: #00ff00; }
 
-/* رنگ‌های نئونی اختصاصی هر پلتفرم */
 .neon-youtube:hover { border-color: #ff0000; box-shadow: 0 0 15px rgba(255, 0, 0, 0.5); color: #ff0000; }
 .neon-instagram:hover { border-color: #e1306c; box-shadow: 0 0 15px rgba(225, 48, 108, 0.5); color: #e1306c; }
 .neon-tiktok:hover { border-color: #00f2fe; box-shadow: 0 0 15px rgba(0, 242, 254, 0.5); color: #00f2fe; }
@@ -180,14 +166,11 @@ footer p {
 
 @media (max-width: 400px) {
     .glass-btn {
-        font-size: 1.05rem; 
+        font-size: 1.05rem;
         padding: 10px 15px;
     }
 }
 
-/* ========================================= */
-/* انیمیشن پورتال (سیاه‌چاله ماتریکسی) */
-/* ========================================= */
 #black-hole {
     position: fixed;
     top: 50%;
@@ -200,72 +183,37 @@ footer p {
     z-index: 9999;
     pointer-events: none;
     transition: transform 1.2s cubic-bezier(0.5, 0, 0.1, 1);
-    box-shadow: 0 0 50px 20px #ff3333; 
+    box-shadow: 0 0 50px 20px #ff3333;
 }
 
 body.portal-active #black-hole {
-    transform: translate(-50%, -50%) scale(400); 
+    transform: translate(-50%, -50%) scale(400);
 }
 
 body.portal-active .terminal-container,
 body.portal-active .pills-container,
 body.portal-active .lang-switcher {
     transition: all 1s ease-in;
-    transform: scale(0) rotate(1080deg); 
+    transform: scale(0) rotate(1080deg);
     opacity: 0;
     filter: blur(10px);
 }
 
-/* ========================================= */
-/* سیستم تایمر سایبرپانکی */
-/* ========================================= */
-.cyber-container {
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    background-color: #0d0d0d; border: 2px solid #0ff;
-    box-shadow: 0 0 15px #0ff, inset 0 0 10px #0ff;
-    padding: 20px; border-radius: 10px; font-family: 'Orbitron', sans-serif;
-    color: #fff; width: 100%; max-width: 400px; margin: 20px auto;
-    position: relative; overflow: hidden;
-}
-.cyber-container::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px;
-    background: repeating-linear-gradient(45deg, #ff00ff, #ff00ff 10px, #000 10px, #000 20px);
-}
-.cyber-title {
-    color: #ff00ff; text-shadow: 0 0 10px #ff00ff; font-size: 1.2rem;
-    margin-bottom: 15px; text-transform: uppercase; letter-spacing: 2px;
-}
-.cyber-timer { display: flex; gap: 15px; direction: ltr; }
-.time-box { display: flex; flex-direction: column; align-items: center; }
-.time-value {
-    font-size: 2.5rem; color: #0ff; text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
-    background: rgba(0, 255, 255, 0.1); padding: 10px 15px;
-    border-radius: 5px; border: 1px solid rgba(0, 255, 255, 0.3);
-}
-.time-label {
-    font-size: 0.8rem; color: #aaa; margin-top: 5px;
-    text-transform: uppercase; letter-spacing: 1px;
-}
-/* ========================================= */
-/* باکسِ تمیز و استاندارد برای لوگوی اینماد */
-/* ========================================= */
 footer {
     z-index: 100;
     position: relative;
     margin-top: 30px;
 }
 
-/* بک‌گراند رو دادیم به تگ a که پشتِ عکس قرار می‌گیره */
 footer a {
     display: inline-block;
-    background-color: #ffffff !important; 
+    background-color: #ffffff !important;
     border-radius: 12px;
-    padding: 5px; /* یه حاشیه تمیزِ سفید دورش می‌سازه */
+    padding: 5px;
     box-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
     transition: transform 0.3s ease;
 }
 
-/* خود عکس رو دیگه دستکاری نمی‌کنیم تا کدر نشه */
 footer a img {
     display: block;
     background: transparent !important;
@@ -276,6 +224,7 @@ footer a:hover {
     transform: scale(1.05);
     box-shadow: 0 0 20px rgba(0, 255, 0, 0.7);
 }
+
 .service-box {
     background-color: #0d0d0d;
     border: 1px solid #00ff00;
@@ -286,23 +235,23 @@ footer a:hover {
     text-align: center;
     box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
     font-family: monospace;
-  }
-  .service-box h3 {
+}
+.service-box h3 {
     color: #00ff00;
     margin-bottom: 10px;
-  }
-  .service-box p {
+}
+.service-box p {
     color: #cccccc;
     font-size: 14px;
     line-height: 1.5;
-  }
-  .service-box .price {
+}
+.service-box .price {
     color: #00ff00;
     font-size: 18px;
     font-weight: bold;
     margin: 15px 0;
-  }
-  .service-box .order-btn {
+}
+.service-box .order-btn {
     display: inline-block;
     background-color: #00ff00;
     color: #000;
@@ -311,8 +260,8 @@ footer a:hover {
     border-radius: 5px;
     font-weight: bold;
     transition: 0.3s;
-  }
-  .service-box .order-btn:hover {
+}
+.service-box .order-btn:hover {
     background-color: #00cc00;
     box-shadow: 0 0 10px #00ff00;
-  }
+}

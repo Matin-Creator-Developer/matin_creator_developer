@@ -3,7 +3,6 @@ const matrixLanguages = {
     en: { warn1: "You are on the verge of a great transformation", warn2: "Do you have the ability and courage to accept the truth?", warn3: "Make your choice", red: "Enter", blue: "Exit", nextPage: "en.home.html", langBtn: "FA 🇮🇷" }
 };
 
-// تشخیص هوشمند زبان دستگاه کاربر به محض ورود
 const userLang = navigator.language || navigator.userLanguage;
 let currentLang = userLang.toLowerCase().includes('fa') ? 'fa' : 'en';
 let typingTimeoutId = null;
@@ -28,7 +27,7 @@ function startTypewriterSequence() {
         typingTimeoutId = setTimeout(() => {
             let charIndex = 0;
             typingIntervalId = setInterval(() => {
-                if (charIndex < current.text.length) { el.innerText += current.text.charAt(charIndex); charIndex++; } 
+                if (charIndex < current.text.length) { el.innerText += current.text.charAt(charIndex); charIndex++; }
                 else { clearInterval(typingIntervalId); el.classList.remove("cursor"); currentLineIndex++; processNextLine(); }
             }, 75);
         }, 1500);
@@ -49,7 +48,6 @@ function updateLanguageUI() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    // اجرا فقط در صفحه دروازه ورود (ایندکس)
     if (document.getElementById("gateway")) {
         updateLanguageUI();
         const langBtn = document.getElementById("lang-btn");
@@ -61,19 +59,12 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
-        // ==========================================
-        // عملیات پورتال (کلیک روی کپسول قرمز)
-        // ==========================================
         const redBtn = document.getElementById("red-pill");
         if (redBtn) {
             redBtn.addEventListener("click", (e) => {
-                e.preventDefault(); 
+                e.preventDefault();
                 const targetUrl = redBtn.href;
-                
-                // اجرای انیمیشن چرخشی سیاه‌چاله
                 document.body.classList.add("portal-active");
-                
-                // مکث 1.2 ثانیه‌ای برای کامل شدن انیمیشن و بعد انتقال
                 setTimeout(() => {
                     window.location.href = targetUrl;
                 }, 1200);
@@ -81,40 +72,3 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 });
-
-// ==========================================
-// پردازشگر سایبرتایمر و تاریخ انقضا
-// ==========================================
-function updateCyberTimer() {
-    const timerContainer = document.querySelector('.cyber-container');
-    // اگه کاربر تو صفحه‌ای بود که باکس تایمر وجود نداشت، پردازش رو متوقف کن تا سیستم کرش نکنه
-    if (!timerContainer) return; 
-
-    // تاریخ انقضای عملیات: 1 سپتامبر ساعت 21:00
-    let finalDate = new Date("2026-09-01T21:00:00");
-    if (new Date() >= finalDate) {
-        timerContainer.style.display = 'none'; // محو شدن خودکار باکس
-        return;
-    }
-
-    let nowString = new Date().toLocaleString("en-US", {timeZone: "Asia/Tehran"});
-    let now = new Date(nowString);
-    let target = new Date(now);
-    target.setHours(21, 0, 0, 0);
-
-    if (now >= target) {
-        target.setDate(target.getDate() + 1);
-    }
-
-    let diff = target - now;
-    let h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    let m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    let s = Math.floor((diff % (1000 * 60)) / 1000);
-
-    document.getElementById("hours").innerText = h.toString().padStart(2, '0');
-    document.getElementById("minutes").innerText = m.toString().padStart(2, '0');
-    document.getElementById("seconds").innerText = s.toString().padStart(2, '0');
-}
-
-setInterval(updateCyberTimer, 1000);
-updateCyberTimer();
