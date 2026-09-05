@@ -72,3 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 });
+document.getElementById('google-login-btn').addEventListener('click', () => {
+  // شلیک کاربر به سمت سرور لاگین شما
+  window.location.href = 'https://login.matin-mohammadi.ir/login';
+});
