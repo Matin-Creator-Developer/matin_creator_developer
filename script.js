@@ -95,7 +95,37 @@ document.addEventListener("DOMContentLoaded", () => {
         const logoName = document.querySelector('.logo');
         if (profileImg) profileImg.src = userPic;
         if (logoName) logoName.innerText = userName;
+        // ۵. تبدیل دکمه ثبت سفارش به درگاه زرین‌پال
+        const orderBtn = document.getElementById('order-btn');
+        if (orderBtn) {
+            orderBtn.innerText = 'پرداخت آنلاین (زرین‌پال)';
+            orderBtn.style.backgroundColor = '#f3cf14'; // زرد زرین‌پال
+            orderBtn.style.color = '#000';
+            orderBtn.onclick = () => {
+                // شلیک به سمت سرور کلودفلر برای ساخت لینک زرین‌پال
+                window.location.href = 'https://login.matin-mohammadi.ir/pay';
+            };
+        }
+// ۶. منطق دکمه برای کاربرِ لاگین‌نکرده
+    const orderBtnGuest = document.getElementById('order-btn');
+    if (orderBtnGuest && !userName) {
+        orderBtnGuest.onclick = () => {
+            const isEnglish = window.location.pathname.includes('en.home.html');
+            const lang = isEnglish ? 'en' : 'fa';
+            window.location.href = `https://login.matin-mohammadi.ir/login?lang=${lang}`;
+        };
+    }
+
+    // ۷. بررسی بازگشت موفقیت‌آمیز از درگاه پرداخت
+    if (urlParams.get('payment') === 'success') {
+        const serviceBox = document.getElementById('service-box');
+        const successBox = document.getElementById('success-box');
+        if (serviceBox) serviceBox.style.display = 'none';
+        if (successBox) successBox.style.display = 'block';
         
+        // پاک کردن پارامتر پرداخت از لینک مرورگر
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
         // ۲. مخفی کردن دکمه لاگین 
         const loginBtn = document.getElementById('google-login-btn');
         if (loginBtn) loginBtn.style.display = 'none';
