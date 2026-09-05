@@ -286,3 +286,25 @@ footer a:hover {
   color: #000;
   box-shadow: 0 0 15px #00ff00;
 }
+.mcd-logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #000;
+  color: #ff3333;
+  border: 1px solid #ff3333;
+  padding: 8px 15px;
+  font-family: monospace;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #ff3333;
+  margin-top: 10px;
+}
+
+.mcd-logout-btn:hover {
+  background-color: #ff3333;
+  color: #000;
+  box-shadow: 0 0 15px #ff3333;
+}

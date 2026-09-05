@@ -88,9 +88,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const urlParams = new URLSearchParams(window.location.search);
     const urlUser = urlParams.get('user');
     const urlPic = urlParams.get('pic');
-    const urlEmail = urlParams.get('email'); // دریافت ایمیل از ماتریکس
+    const urlEmail = urlParams.get('email');
 
-    // ۱. ذخیره اطلاعات تو مرورگر (شامل ایمیل)
+    // ۱. ذخیره اطلاعات تو مرورگر
     if (urlUser && urlPic && urlEmail) {
         localStorage.setItem('mcd_user', urlUser);
         localStorage.setItem('mcd_pic', urlPic);
@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // ۲. خوندن اطلاعات از حافظه
     const savedUser = localStorage.getItem('mcd_user');
     const savedPic = localStorage.getItem('mcd_pic');
-    const savedEmail = localStorage.getItem('mcd_email'); // ایمیل بازیابی شد
+    const savedEmail = localStorage.getItem('mcd_email');
 
     if (savedUser && savedPic) {
         const profileImg = document.getElementById('profile-img');
@@ -111,6 +111,18 @@ document.addEventListener("DOMContentLoaded", () => {
         
         const loginBtn = document.getElementById('google-login-btn');
         if (loginBtn) loginBtn.style.display = 'none';
+
+        // نمایش دکمه خروج اضطراری و پاک کردن حافظه
+        const logoutBtn = document.getElementById('logout-btn');
+        if (logoutBtn) {
+            logoutBtn.style.display = 'inline-flex';
+            logoutBtn.addEventListener('click', () => {
+                localStorage.removeItem('mcd_user');
+                localStorage.removeItem('mcd_pic');
+                localStorage.removeItem('mcd_email');
+                window.location.reload(); // رفرش صفحه برای بازگشت به حالت روح
+            });
+        }
 
         const bio = document.querySelector('.badass-bio');
         if (bio) {
@@ -122,14 +134,12 @@ document.addEventListener("DOMContentLoaded", () => {
             bio.style.lineHeight = '1.8';
         }
 
-        // تبدیل دکمه و شلیک ایمیل به زرین‌پال
         const orderBtn = document.getElementById('order-btn');
         if (orderBtn) {
             orderBtn.innerText = 'پرداخت آنلاین (زرین‌پال)';
             orderBtn.style.backgroundColor = '#f3cf14';
             orderBtn.style.color = '#000';
             orderBtn.onclick = () => {
-                // ایمیل رو تو لینک جاسازی می‌کنیم
                 window.location.href = `https://login.matin-mohammadi.ir/pay?email=${savedEmail}`;
             };
         }
