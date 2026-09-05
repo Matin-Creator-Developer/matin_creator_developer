@@ -77,11 +77,41 @@ document.addEventListener("DOMContentLoaded", () => {
 const googleLoginBtn = document.getElementById('google-login-btn');
 if (googleLoginBtn) {
     googleLoginBtn.addEventListener('click', () => {
-        // کارآگاه بازی: چک می‌کنیم ببینیم کاربر تو صفحه انگلیسیه یا فارسی
         const isEnglish = window.location.pathname.includes('en.home.html');
         const lang = isEnglish ? 'en' : 'fa';
-        
-        // شلیک کاربر به سرور با چیپ ردیابی زبان
         window.location.href = `https://login.matin-mohammadi.ir/login?lang=${lang}`;
     });
 }
+
+// عملیات شناسایی کاربر برگشتی از ماتریکس
+document.addEventListener("DOMContentLoaded", () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const userName = urlParams.get('user');
+    const userPic = urlParams.get('pic');
+
+    if (userName && userPic) {
+        // ۱. آپدیت هولوگرام پروفایل و اسم
+        const profileImg = document.getElementById('profile-img');
+        const logoName = document.querySelector('.logo');
+        if (profileImg) profileImg.src = userPic;
+        if (logoName) logoName.innerText = userName;
+        
+        // ۲. مخفی کردن دکمه لاگین 
+        const loginBtn = document.getElementById('google-login-btn');
+        if (loginBtn) loginBtn.style.display = 'none';
+
+        // ۳. تغییر بایوگرافی به پیام خوش‌آمدگویی
+        const bio = document.querySelector('.badass-bio');
+        if (bio) {
+            const isEnglish = window.location.pathname.includes('en.home.html');
+            bio.innerHTML = isEnglish 
+                ? `Congratulations!<br>You have successfully penetrated the Matrix core. Welcome, Agent ${userName}!` 
+                : `تبریک می‌گم!<br>شما با موفقیت به هسته مرکزی ماتریکس نفوذ کردی، مامور ${userName} خوش اومدی!`;
+            bio.style.color = '#00ff00';
+            bio.style.lineHeight = '1.8';
+        }
+
+        // ۴. پاک کردن ردپا از لینک مرورگر
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+});
