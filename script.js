@@ -72,7 +72,16 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 });
-document.getElementById('google-login-btn').addEventListener('click', () => {
-  // شلیک کاربر به سمت سرور لاگین شما
-  window.location.href = 'https://login.matin-mohammadi.ir/login';
-});
+
+// اتصال دکمه لاگین گوگل با قابلیت تشخیص زبان (چیپ ردیابی مامورهای ماتریکس)
+const googleLoginBtn = document.getElementById('google-login-btn');
+if (googleLoginBtn) {
+    googleLoginBtn.addEventListener('click', () => {
+        // کارآگاه بازی: چک می‌کنیم ببینیم کاربر تو صفحه انگلیسیه یا فارسی
+        const isEnglish = window.location.pathname.includes('en.home.html');
+        const lang = isEnglish ? 'en' : 'fa';
+        
+        // شلیک کاربر به سرور با چیپ ردیابی زبان
+        window.location.href = `https://login.matin-mohammadi.ir/login?lang=${lang}`;
+    });
+}
