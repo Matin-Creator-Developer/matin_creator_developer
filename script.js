@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-// اتصال دکمه لاگین گوگل با قابلیت تشخیص زبان (چیپ ردیابی مامورهای ماتریکس)
+// اتصال دکمه لاگین گوگل
 const googleLoginBtn = document.getElementById('google-login-btn');
 if (googleLoginBtn) {
     googleLoginBtn.addEventListener('click', () => {
@@ -83,65 +83,71 @@ if (googleLoginBtn) {
     });
 }
 
-// عملیات شناسایی کاربر برگشتی از ماتریکس
+// هسته مرکزی پردازش اطلاعات کاربر و پرداخت
 document.addEventListener("DOMContentLoaded", () => {
     const urlParams = new URLSearchParams(window.location.search);
-    const userName = urlParams.get('user');
-    const userPic = urlParams.get('pic');
+    const urlUser = urlParams.get('user');
+    const urlPic = urlParams.get('pic');
 
-    if (userName && userPic) {
-        // ۱. آپدیت هولوگرام پروفایل و اسم
+    // ۱. اگه کاربر تازه از لاگین برگشته، تو حافظه مرورگر ذخیره‌ش کن تا با رفرش نپره
+    if (urlUser && urlPic) {
+        localStorage.setItem('mcd_user', urlUser);
+        localStorage.setItem('mcd_pic', urlPic);
+        // پاک کردن پارامترها از لینک برای تمیزی
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+
+    // ۲. خوندن اطلاعات از حافظه مرورگر
+    const savedUser = localStorage.getItem('mcd_user');
+    const savedPic = localStorage.getItem('mcd_pic');
+
+    // ۳. اگه لاگین کرده:
+    if (savedUser && savedPic) {
         const profileImg = document.getElementById('profile-img');
         const logoName = document.querySelector('.logo');
-        if (profileImg) profileImg.src = userPic;
-        if (logoName) logoName.innerText = userName;
-        // ۵. تبدیل دکمه ثبت سفارش به درگاه زرین‌پال
+        if (profileImg) profileImg.src = savedPic;
+        if (logoName) logoName.innerText = savedUser;
+        
+        const loginBtn = document.getElementById('google-login-btn');
+        if (loginBtn) loginBtn.style.display = 'none';
+
+        const bio = document.querySelector('.badass-bio');
+        if (bio) {
+            const isEnglish = window.location.pathname.includes('en.home.html');
+            bio.innerHTML = isEnglish 
+                ? `Congratulations!<br>You have successfully penetrated the Matrix core. Welcome, Agent ${savedUser}!` 
+                : `تبریک می‌گم!<br>شما با موفقیت به هسته مرکزی ماتریکس نفوذ کردی، مامور ${savedUser} خوش اومدی!`;
+            bio.style.color = '#00ff00';
+            bio.style.lineHeight = '1.8';
+        }
+
+        // تبدیل دکمه به پرداخت زرین‌پال
         const orderBtn = document.getElementById('order-btn');
         if (orderBtn) {
             orderBtn.innerText = 'پرداخت آنلاین (زرین‌پال)';
-            orderBtn.style.backgroundColor = '#f3cf14'; // زرد زرین‌پال
+            orderBtn.style.backgroundColor = '#f3cf14';
             orderBtn.style.color = '#000';
-            orderBtn.onclick = () => {
-                // شلیک به سمت سرور کلودفلر برای ساخت لینک زرین‌پال
-                window.location.href = 'https://login.matin-mohammadi.ir/pay';
+            orderBtn.onclick = () => window.location.href = 'https://login.matin-mohammadi.ir/pay';
+        }
+    } else {
+        // ۴. اگه لاگین نکرده: دکمه سفارش شلیکش می‌کنه به لاگین
+        const orderBtnGuest = document.getElementById('order-btn');
+        if (orderBtnGuest) {
+            orderBtnGuest.onclick = () => {
+                const isEnglish = window.location.pathname.includes('en.home.html');
+                const lang = isEnglish ? 'en' : 'fa';
+                window.location.href = `https://login.matin-mohammadi.ir/login?lang=${lang}`;
             };
         }
-// ۶. منطق دکمه برای کاربرِ لاگین‌نکرده
-    const orderBtnGuest = document.getElementById('order-btn');
-    if (orderBtnGuest && !userName) {
-        orderBtnGuest.onclick = () => {
-            const isEnglish = window.location.pathname.includes('en.home.html');
-            const lang = isEnglish ? 'en' : 'fa';
-            window.location.href = `https://login.matin-mohammadi.ir/login?lang=${lang}`;
-        };
     }
 
-    // ۷. بررسی بازگشت موفقیت‌آمیز از درگاه پرداخت
+    // ۵. بررسی بازگشت موفقیت‌آمیز از زرین‌پال
     if (urlParams.get('payment') === 'success') {
         const serviceBox = document.getElementById('service-box');
         const successBox = document.getElementById('success-box');
         if (serviceBox) serviceBox.style.display = 'none';
         if (successBox) successBox.style.display = 'block';
         
-        // پاک کردن پارامتر پرداخت از لینک مرورگر
-        window.history.replaceState({}, document.title, window.location.pathname);
-    }
-        // ۲. مخفی کردن دکمه لاگین 
-        const loginBtn = document.getElementById('google-login-btn');
-        if (loginBtn) loginBtn.style.display = 'none';
-
-        // ۳. تغییر بایوگرافی به پیام خوش‌آمدگویی
-        const bio = document.querySelector('.badass-bio');
-        if (bio) {
-            const isEnglish = window.location.pathname.includes('en.home.html');
-            bio.innerHTML = isEnglish 
-                ? `Congratulations!<br>You have successfully penetrated the Matrix core. Welcome, Agent ${userName}!` 
-                : `تبریک می‌گم!<br>شما با موفقیت به هسته مرکزی ماتریکس نفوذ کردی، مامور ${userName} خوش اومدی!`;
-            bio.style.color = '#00ff00';
-            bio.style.lineHeight = '1.8';
-        }
-
-        // ۴. پاک کردن ردپا از لینک مرورگر
         window.history.replaceState({}, document.title, window.location.pathname);
     }
 });
