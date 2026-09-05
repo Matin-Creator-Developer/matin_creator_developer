@@ -88,20 +88,21 @@ document.addEventListener("DOMContentLoaded", () => {
     const urlParams = new URLSearchParams(window.location.search);
     const urlUser = urlParams.get('user');
     const urlPic = urlParams.get('pic');
+    const urlEmail = urlParams.get('email'); // دریافت ایمیل از ماتریکس
 
-    // ۱. اگه کاربر تازه از لاگین برگشته، تو حافظه مرورگر ذخیره‌ش کن تا با رفرش نپره
-    if (urlUser && urlPic) {
+    // ۱. ذخیره اطلاعات تو مرورگر (شامل ایمیل)
+    if (urlUser && urlPic && urlEmail) {
         localStorage.setItem('mcd_user', urlUser);
         localStorage.setItem('mcd_pic', urlPic);
-        // پاک کردن پارامترها از لینک برای تمیزی
+        localStorage.setItem('mcd_email', urlEmail);
         window.history.replaceState({}, document.title, window.location.pathname);
     }
 
-    // ۲. خوندن اطلاعات از حافظه مرورگر
+    // ۲. خوندن اطلاعات از حافظه
     const savedUser = localStorage.getItem('mcd_user');
     const savedPic = localStorage.getItem('mcd_pic');
+    const savedEmail = localStorage.getItem('mcd_email'); // ایمیل بازیابی شد
 
-    // ۳. اگه لاگین کرده:
     if (savedUser && savedPic) {
         const profileImg = document.getElementById('profile-img');
         const logoName = document.querySelector('.logo');
@@ -121,16 +122,18 @@ document.addEventListener("DOMContentLoaded", () => {
             bio.style.lineHeight = '1.8';
         }
 
-        // تبدیل دکمه به پرداخت زرین‌پال
+        // تبدیل دکمه و شلیک ایمیل به زرین‌پال
         const orderBtn = document.getElementById('order-btn');
         if (orderBtn) {
             orderBtn.innerText = 'پرداخت آنلاین (زرین‌پال)';
             orderBtn.style.backgroundColor = '#f3cf14';
             orderBtn.style.color = '#000';
-            orderBtn.onclick = () => window.location.href = 'https://login.matin-mohammadi.ir/pay';
+            orderBtn.onclick = () => {
+                // ایمیل رو تو لینک جاسازی می‌کنیم
+                window.location.href = `https://login.matin-mohammadi.ir/pay?email=${savedEmail}`;
+            };
         }
     } else {
-        // ۴. اگه لاگین نکرده: دکمه سفارش شلیکش می‌کنه به لاگین
         const orderBtnGuest = document.getElementById('order-btn');
         if (orderBtnGuest) {
             orderBtnGuest.onclick = () => {
@@ -141,13 +144,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // ۵. بررسی بازگشت موفقیت‌آمیز از زرین‌پال
     if (urlParams.get('payment') === 'success') {
         const serviceBox = document.getElementById('service-box');
         const successBox = document.getElementById('success-box');
         if (serviceBox) serviceBox.style.display = 'none';
         if (successBox) successBox.style.display = 'block';
-        
         window.history.replaceState({}, document.title, window.location.pathname);
     }
 });
